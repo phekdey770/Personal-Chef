@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Chef Service</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Moul&family=Moulpali&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/745/745551.png">
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #4ECDC4;
+            --dark-color: #292F36;
+            --light-color: #F7FFF7;
+            --accent-color: #FFE66D;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kantumruy Pro', sans-serif;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Moul', serif;
+            font-weight: normal;
+        }
+
+        .modal-font {
+            font-family: 'Moulpali', serif;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, rgba(255,107,107,0.9), rgba(78,205,196,0.9));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        header.scrolled .logo img {
+            height: 50px;
+        }
+
+        header.scrolled nav a {
+            color: var(--dark-color);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            transition: var(--transition);
+        }
+
+        .logo-text {
+            margin-left: 1rem;
+            font-family: 'Moul', serif;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* About Section */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Services Section */
+        .services {
+            background: #f9f9f9;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* Chef Section */
+        .chefs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .chef-card {
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .chef-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .chef-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            border: 5px solid var(--secondary-color);
+        }
+
+        .chef-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chef-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chef-card p {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--light-color);
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: linear-gradient(135deg, rgba(255,107,107,0.9), rgba(78,205,196,0.9));
+            color: white;
+        }
+
+        .testimonials .section-title h2 {
+            color: white;
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.3rem;
+        }
+
+        .author-info p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Kantumruy Pro', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255,107,107,0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -8px;
+            left: 0;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 5px;
+        }
+
+        .language-toggle span {
+            padding: 0 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .language-toggle span.active {
+            color: var(--primary-color);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #eee;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition);
+        }
+
+        .toggle-switch.en::before {
+            left: calc(100% - 28px);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            transform: translateY(-50px);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            font-family: 'Moulpali', serif;
+            font-size: 2rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background: white;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 2rem;
+            }
+
+            nav ul li {
+                margin: 1rem 0;
+            }
+
+            nav ul li a {
+                color: var(--dark-color);
+                font-size: 1.2rem;
+            }
+
+            header.scrolled nav {
+                top: 60px;
+                height: calc(100vh - 60px);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.5rem;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-btns {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/745/745551.png" alt="Personal Chef Logo" id="logo-img">
+                <span class="logo-text">Personal Chef</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#home" class="nav-link" data-lang="home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-lang="about">About</a></li>
+                    <li><a href="#services" class="nav-link" data-lang="services">Services</a></li>
+                    <li><a href="#chefs" class="nav-link" data-lang="chefs">Our Chefs</a></li>
+                    <li><a href="#testimonials" class="nav-link" data-lang="testimonials">Testimonials</a></li>
+                    <li><a href="#contact" class="nav-link" data-lang="contact">Contact</a></li>
+                    <li><a href="#" class="btn btn-book" id="book-now-btn" data-lang="book">Book Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 data-lang="hero-title">Premium Personal Chef Services</h1>
+            <p data-lang="hero-text">Experience restaurant-quality meals in the comfort of your home. Our professional chefs will create customized menus tailored to your tastes and dietary needs.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn" data-lang="contact-btn">Contact Us</a>
+                <a href="#" class="btn btn-secondary" id="menu-btn" data-lang="menu-btn">View Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-title">
+            <h2 data-lang="about-title">About Our Service</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3 data-lang="about-subtitle">Culinary Excellence at Your Doorstep</h3>
+                <p data-lang="about-text1">Our personal chef service brings the luxury of fine dining to your home. Whether you're hosting a special event, need weekly meal preparation, or want to enjoy a romantic dinner without the hassle, our chefs have you covered.</p>
+                <p data-lang="about-text2">With years of experience in top restaurants around the world, our chefs are skilled in a variety of cuisines and can accommodate any dietary restrictions or preferences.</p>
+                <a href="#services" class="btn" data-lang="learn-more">Learn More</a>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Chef preparing food">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="section-title">
+            <h2 data-lang="services-title">Our Services</h2>
+        </div>
+        <div class="services-container">
+            <div class="service-card" data-aos="fade-up">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Private Dining">
+                </div>
+                <div class="service-content">
+                    <h3 data-lang="service1-title">Private Dining</h3>
+                    <p data-lang="service1-text">Enjoy a restaurant-quality meal in your own home, prepared and served by your personal chef. Perfect for date nights, anniversaries, or any special occasion.</p>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Meal Prep">
+                </div>
+                <div class="service-content">
+                    <h3 data-lang="service2-title">Weekly Meal Prep</h3>
+                    <p data-lang="service2-text">Save time and eat healthy with our weekly meal preparation service. Your chef will prepare multiple meals customized to your dietary needs.</p>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cooking Classes">
+                </div>
+                <div class="service-content">
+                    <h3 data-lang="service3-title">Cooking Classes</h3>
+                    <p data-lang="service3-text">Learn to cook like a pro with personalized cooking lessons in your own kitchen. Great for individuals, couples, or small groups.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chefs Section -->
+    <section class="section" id="chefs">
+        <div class="section-title">
+            <h2 data-lang="chefs-title">Our Professional Chefs</h2>
+        </div>
+        <div class="chefs-container">
+            <div class="chef-card" data-aos="zoom-in">
+                <div class="chef-image">
+                    <img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Chef John">
+                </div>
+                <h3 data-lang="chef1-name">John Masterchef</h3>
+                <p data-lang="chef1-title">Head Chef</p>
+                <p data-lang="chef1-bio">With 15 years of experience in Michelin-starred restaurants across Europe, John brings world-class culinary expertise to your home.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="chef-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="chef-image">
+                    <img src="https://images.unsplash.com/photo-1601315379734-4258b58246c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Chef Maria">
+                </div>
+                <h3 data-lang="chef2-name">Maria Garcia</h3>
+                <p data-lang="chef2-title">Pastry Chef</p>
+                <p data-lang="chef2-bio">Specializing in French patisserie and artisanal breads, Maria creates desserts that are as beautiful as they are delicious.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="chef-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="chef-image">
+                    <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Chef David">
+                </div>
+                <h3 data-lang="chef3-name">David Kim</h3>
+                <p data-lang="chef3-title">Asian Cuisine Specialist</p>
+                <p data-lang="chef3-bio">Trained in Japan and Thailand, David offers authentic Asian flavors with a modern twist to delight your palate.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+        <div class="section-title">
+            <h2 data-lang="testimonials-title">What Our Clients Say</h2>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial-card" data-aos="fade-right">
+                <div class="testimonial-text">
+                    <p data-lang="testimonial1-text">"The private dinner Chef John prepared for our anniversary was absolutely incredible. The food was better than any restaurant we've been to, and the experience of having it in our home made it so special."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                    </div>
+                    <div class="author-info">
+                        <h4 data-lang="testimonial1-name">Sarah Johnson</h4>
+                        <p data-lang="testimonial1-role">Private Dinner Client</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card" data-aos="fade-right" data-aos-delay="100">
+                <div class="testimonial-text">
+                    <p data-lang="testimonial2-text">"Maria's weekly meal prep service has completely changed our lives. We're eating healthier, saving money, and best of all - no more stressful evenings trying to figure out what to cook!"</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                    </div>
+                    <div class="author-info">
+                        <h4 data-lang="testimonial2-name">Michael Chen</h4>
+                        <p data-lang="testimonial2-role">Weekly Meal Prep Client</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card" data-aos="fade-right" data-aos-delay="200">
+                <div class="testimonial-text">
+                    <p data-lang="testimonial3-text">"The cooking class with Chef David was so much fun! I learned techniques I've been trying to master for years in just one session. My family can't believe how much my cooking has improved."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez">
+                    </div>
+                    <div class="author-info">
+                        <h4 data-lang="testimonial3-name">Emily Rodriguez</h4>
+                        <p data-lang="testimonial3-role">Cooking Class Participant</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="section-title">
+            <h2 data-lang="contact-title">Contact Us</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item" data-aos="fade-right">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3 data-lang="address-title">Address</h3>
+                        <p data-lang="address-text">123 Culinary Street, Foodie District, Phnom Penh, Cambodia</p>
+                    </div>
+                </div>
+                <div class="contact-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3 data-lang="phone-title">Phone</h3>
+                        <p>+855 12 345 678</p>
+                    </div>
+                </div>
+                <div class="contact-item" data-aos="fade-right" data-aos-delay="200">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3 data-lang="email-title">Email</h3>
+                        <p>info@personalchef.com</p>
+                    </div>
+                </div>
+                <div class="contact-item" data-aos="fade-right" data-aos-delay="300">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3 data-lang="hours-title">Working Hours</h3>
+                        <p data-lang="hours-text">Monday - Sunday: 8:00 AM - 10:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form" data-aos="fade-left">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name" data-lang="form-name">Your Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-lang="form-email">Your Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" data-lang="form-subject">Subject</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-lang="form-message">Your Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn" data-lang="form-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 data-lang="footer-about">About Us</h3>
+                <p data-lang="footer-about-text">We provide premium personal chef services, bringing culinary excellence to your home with customized menus and professional service.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3 data-lang="footer-links">Quick Links</h3>
+                <ul>
+                    <li><a href="#home" data-lang="footer-home">Home</a></li>
+                    <li><a href="#about" data-lang="footer-about">About</a></li>
+                    <li><a href="#services" data-lang="footer-services">Services</a></li>
+                    <li><a href="#chefs" data-lang="footer-chefs">Chefs</a></li>
+                    <li><a href="#testimonials" data-lang="footer-testimonials">Testimonials</a></li>
+                    <li><a href="#contact" data-lang="footer-contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 data-lang="footer-services-menu">Services</h3>
+                <ul>
+                    <li><a href="#" data-lang="footer-private-dining">Private Dining</a></li>
+                    <li><a href="#" data-lang="footer-meal-prep">Weekly Meal Prep</a></li>
+                    <li><a href="#" data-lang="footer-cooking-classes">Cooking Classes</a></li>
+                    <li><a href="#" data-lang="footer-catering">Event Catering</a></li>
+                    <li><a href="#" data-lang="footer-custom">Custom Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 data-lang="footer-newsletter">Newsletter</h3>
+                <p data-lang="footer-newsletter-text">Subscribe to our newsletter for updates and special offers.</p>
+                <form class="newsletter-form">
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" class="form-control" data-lang="footer-email-placeholder">
+                    </div>
+                    <button type="submit" class="btn" data-lang="footer-subscribe">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="credit-en">2025 - All rights reserved. Provide by Mr. Phekdey PHORN</p>
+            <p class="credit-kh" style="display: none;">2025 - រក្សារ​សិទ្ធិ​គ្រប់​យ៉ាង ដោយលោក ផន ភក្ដី។</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <span class="kh" data-lang="kh">ភាសាខ្មែរ</span>
+        <div class="toggle-switch" id="toggle-switch"></div>
+        <span class="en active" data-lang="en">English</span>
+    </div>
+
+    <!-- Menu Modal -->
+    <div class="modal" id="menu-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="menu-modal-close">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-font" data-lang="menu-title">Our Signature Menu</h2>
+            </div>
+            <div class="modal-body">
+                <h3 class="modal-font" data-lang="menu-appetizers">Appetizers</h3>
+                <p data-lang="menu-app1">- Truffle Infused Mushroom Bruschetta</p>
+                <p data-lang="menu-app2">- Seared Scallops with Citrus Beurre Blanc</p>
+                <p data-lang="menu-app3">- Charcuterie Board with Artisanal Cheeses</p>
+                
+                <h3 class="modal-font" style="margin-top: 1.5rem;" data-lang="menu-mains">Main Courses</h3>
+                <p data-lang="menu-main1">- Beef Wellington with Red Wine Reduction</p>
+                <p data-lang="menu-main2">- Pan-Seared Salmon with Lemon Beurre Blanc</p>
+                <p data-lang="menu-main3">- Roasted Duck with Cherry Port Sauce</p>
+                <p data-lang="menu-main4">- Wild Mushroom Risotto with Truffle Oil</p>
+                
+                <h3 class="modal-font" style="margin-top: 1.5rem;" data-lang="menu-desserts">Desserts</h3>
+                <p data-lang="menu-dess1">- Chocolate Soufflé with Vanilla Bean Ice Cream</p>
+                <p data-lang="menu-dess2">- Crème Brûlée Trio</p>
+                <p data-lang="menu-dess3">- Seasonal Fruit Tart with Chantilly Cream</p>
+                
+                <p style="margin-top: 2rem; font-style: italic;" data-lang="menu-note">* Menus can be fully customized to your preferences and dietary requirements.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="book-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="book-modal-close">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-font" data-lang="book-title">Book Your Personal Chef</h2>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="book-name" data-lang="form-name">Your Name</label>
+                        <input type="text" id="book-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-email" data-lang="form-email">Your Email</label>
+                        <input type="email" id="book-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-phone" data-lang="form-phone">Phone Number</label>
+                        <input type="tel" id="book-phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-date" data-lang="form-date">Date of Service</label>
+                        <input type="date" id="book-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-service" data-lang="form-service">Service Type</label>
+                        <select id="book-service" class="form-control" required>
+                            <option value="" data-lang="form-select">Select a service</option>
+                            <option value="private-dining" data-lang="form-private-dining">Private Dining</option>
+                            <option value="meal-prep" data-lang="form-meal-prep">Weekly Meal Prep</option>
+                            <option value="cooking-class" data-lang="form-cooking-class">Cooking Class</option>
+                            <option value="catering" data-lang="form-catering">Event Catering</option>
+                            <option value="custom" data-lang="form-custom">Custom Service</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-guests" data-lang="form-guests">Number of Guests</label>
+                        <input type="number" id="book-guests" class="form-control" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="book-notes" data-lang="form-notes">Special Requests</label>
+                        <textarea id="book-notes" class="form-control" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn" data-lang="form-submit-book">Submit Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animation
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const nav = document.getElementById('nav');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        const logoImg = document.getElementById('logo-img');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for all links
+        $('a[href*="#"]').on('click', function(e) {
+            e.preventDefault();
+            
+            $('html, body').animate(
+                {
+                    scrollTop: $($(this).attr('href')).offset().top - 80,
+                },
+                500,
+                'linear'
+            );
+        });
+
+        // Modal functionality
+        const menuBtn = document.getElementById('menu-btn');
+        const menuModal = document.getElementById('menu-modal');
+        const menuModalClose = document.getElementById('menu-modal-close');
+
+        const bookBtn = document.getElementById('book-now-btn');
+        const bookModal = document.getElementById('book-modal');
+        const bookModalClose = document.getElementById('book-modal-close');
+
+        menuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            menuModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        menuModalClose.addEventListener('click', () => {
+            menuModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        bookBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            bookModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        bookModalClose.addEventListener('click', () => {
+            bookModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === menuModal) {
+                menuModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            if (e.target === bookModal) {
+                bookModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your booking request! We will contact you to confirm the details.');
+            this.reset();
+            bookModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Language toggle functionality
+        const toggleSwitch = document.getElementById('toggle-switch');
+        const khText = document.querySelector('.kh');
+        const enText = document.querySelector('.en');
+        const creditEn = document.querySelector('.credit-en');
+        const creditKh = document.querySelector('.credit-kh');
+
+        // Language data
+        const languageData = {
+            en: {
+                'home': 'Home',
+                'about': 'About',
+                'services': 'Services',
+                'chefs': 'Our Chefs',
+                'testimonials': 'Testimonials',
+                'contact': 'Contact',
+                'book': 'Book Now',
+                'hero-title': 'Premium Personal Chef Services',
+                'hero-text': 'Experience restaurant-quality meals in the comfort of your home. Our professional chefs will create customized menus tailored to your tastes and dietary needs.',
+                'contact-btn': 'Contact Us',
+                'menu-btn': 'View Menu',
+                'about-title': 'About Our Service',
+                'about-subtitle': 'Culinary Excellence at Your Doorstep',
+                'about-text1': 'Our personal chef service brings the luxury of fine dining to your home. Whether you\'re hosting a special event, need weekly meal preparation, or want to enjoy a romantic dinner without the hassle, our chefs have you covered.',
+                'about-text2': 'With years of experience in top restaurants around the world, our chefs are skilled in a variety of cuisines and can accommodate any dietary restrictions or preferences.',
+                'learn-more': 'Learn More',
+                'services-title': 'Our Services',
+                'service1-title': 'Private Dining',
+                'service1-text': 'Enjoy a restaurant-quality meal in your own home, prepared and served by your personal chef. Perfect for date nights, anniversaries, or any special occasion.',
+                'service2-title': 'Weekly Meal Prep',
+                'service2-text': 'Save time and eat healthy with our weekly meal preparation service. Your chef will prepare multiple meals customized to your dietary needs.',
+                'service3-title': 'Cooking Classes',
+                'service3-text': 'Learn to cook like a pro with personalized cooking lessons in your own kitchen. Great for individuals, couples, or small groups.',
+                'chefs-title': 'Our Professional Chefs',
+                'chef1-name': 'John Masterchef',
+                'chef1-title': 'Head Chef',
+                'chef1-bio': 'With 15 years of experience in Michelin-starred restaurants across Europe, John brings world-class culinary expertise to your home.',
+                'chef2-name': 'Maria Garcia',
+                'chef2-title': 'Pastry Chef',
+                'chef2-bio': 'Specializing in French patisserie and artisanal breads, Maria creates desserts that are as beautiful as they are delicious.',
+                'chef3-name': 'David Kim',
+                'chef3-title': 'Asian Cuisine Specialist',
+                'chef3-bio': 'Trained in Japan and Thailand, David offers authentic Asian flavors with a modern twist to delight your palate.',
+                'testimonials-title': 'What Our Clients Say',
+                'testimonial1-text': '"The private dinner Chef John prepared for our anniversary was absolutely incredible. The food was better than any restaurant we\'ve been to, and the experience of having it in our home made it so special."',
+                'testimonial1-name': 'Sarah Johnson',
+                'testimonial1-role': 'Private Dinner Client',
+                'testimonial2-text': '"Maria\'s weekly meal prep service has completely changed our lives. We\'re eating healthier, saving money, and best of all - no more stressful evenings trying to figure out what to cook!"',
+                'testimonial2-name': 'Michael Chen',
+                'testimonial2-role': 'Weekly Meal Prep Client',
+                'testimonial3-text': '"The cooking class with Chef David was so much fun! I learned techniques I\'ve been trying to master for years in just one session. My family can\'t believe how much my cooking has improved."',
+                'testimonial3-name': 'Emily Rodriguez',
+                'testimonial3-role': 'Cooking Class Participant',
+                'contact-title': 'Contact Us',
+                'address-title': 'Address',
+                'address-text': '123 Culinary Street, Foodie District, Phnom Penh, Cambodia',
+                'phone-title': 'Phone',
+                'email-title': 'Email',
+                'hours-title': 'Working Hours',
+                'hours-text': 'Monday - Sunday: 8:00 AM - 10:00 PM',
+                'form-name': 'Your Name',
+                'form-email': 'Your Email',
+                'form-subject': 'Subject',
+                'form-message': 'Your Message',
+                'form-submit': 'Send Message',
+                'footer-about': 'About Us',
+                'footer-about-text': 'We provide premium personal chef services, bringing culinary excellence to your home with customized menus and professional service.',
+                'footer-links': 'Quick Links',
+                'footer-home': 'Home',
+                'footer-services': 'Services',
+                'footer-chefs': 'Chefs',
+                'footer-testimonials': 'Testimonials',
+                'footer-contact': 'Contact',
+                'footer-services-menu': 'Services',
+                'footer-private-dining': 'Private Dining',
+                'footer-meal-prep': 'Weekly Meal Prep',
+                'footer-cooking-classes': 'Cooking Classes',
+                'footer-catering': 'Event Catering',
+                'footer-custom': 'Custom Services',
+                'footer-newsletter': 'Newsletter',
+                'footer-newsletter-text': 'Subscribe to our newsletter for updates and special offers.',
+                'footer-email-placeholder': 'Your Email',
+                'footer-subscribe': 'Subscribe',
+                'menu-title': 'Our Signature Menu',
+                'menu-appetizers': 'Appetizers',
+                'menu-app1': '- Truffle Infused Mushroom Bruschetta',
+                'menu-app2': '- Seared Scallops with Citrus Beurre Blanc',
+                'menu-app3': '- Charcuterie Board with Artisanal Cheeses',
+                'menu-mains': 'Main Courses',
+                'menu-main1': '- Beef Wellington with Red Wine Reduction',
+                'menu-main2': '- Pan-Seared Salmon with Lemon Beurre Blanc',
+                'menu-main3': '- Roasted Duck with Cherry Port Sauce',
+                'menu-main4': '- Wild Mushroom Risotto with Truffle Oil',
+                'menu-desserts': 'Desserts',
+                'menu-dess1': '- Chocolate Soufflé with Vanilla Bean Ice Cream',
+                'menu-dess2': '- Crème Brûlée Trio',
+                'menu-dess3': '- Seasonal Fruit Tart with Chantilly Cream',
+                'menu-note': '* Menus can be fully customized to your preferences and dietary requirements.',
+                'book-title': 'Book Your Personal Chef',
+                'form-phone': 'Phone Number',
+                'form-date': 'Date of Service',
+                'form-service': 'Service Type',
+                'form-select': 'Select a service',
+                'form-private-dining': 'Private Dining',
+                'form-meal-prep': 'Weekly Meal Prep',
+                'form-cooking-class': 'Cooking Class',
+                'form-catering': 'Event Catering',
+                'form-custom': 'Custom Service',
+                'form-guests': 'Number of Guests',
+                'form-notes': 'Special Requests',
+                'form-submit-book': 'Submit Booking',
+                'kh': 'Khmer',
+                'en': 'English'
+            },
+            kh: {
+                'home': 'ទំព័រដើម',
+                'about': 'អំពីយើង',
+                'services': 'សេវាកម្ម',
+                'chefs': 'ចុងភៅរបស់យើង',
+                'testimonials': 'ការវាយតម្លៃ',
+                'contact': 'ទំនាក់ទំនង',
+                'book': 'កក់ឥឡូវ',
+                'hero-title': 'សេវាកម្មចុងភៅផ្ទាល់ខ្លួនដែលមានគុណភាពខ្ពស់',
+                'hero-text': 'សូមរីករាយជាមួយអាហារដែលមានគុណភាពដូចភោជនីយដ្ឋាននៅផ្ទះរបស់អ្នក។ ចុងភៅវិជ្ជាជីវៈរបស់យើងនឹងបង្កើតម៉ឺនុយផ្ទាល់ខ្លួនដែលត្រូវគ្នានឹងរសជាតិ និងតម្រូវការអាហាររបស់អ្នក។',
+                'contact-btn': 'ទំនាក់ទំនង',
+                'menu-btn': 'មើលម៉ឺនុយ',
+                'about-title': 'អំពីសេវាកម្មរបស់យើង',
+                'about-subtitle': 'ជំនាញធ្វើម្ហូបថ្នាក់ខ្ពស់នៅផ្ទះអ្នក',
+                'about-text1': 'សេវាកម្មចុងភៅផ្ទាល់ខ្លួនរបស់យើងនាំមកនូវភាពអស្ថារមាននៃអាហារថ្នាក់ខ្ពស់ទៅផ្ទះរបស់អ្នក។ ទោះជាអ្នករៀបចំពិធីពិសេស ត្រូវការរៀបចំអាហារសប្តាហ៍ ឬចង់រីករាយជាមួយអាហារពេលល្ងាចដ៏ពិសេសដោយគ្មានការលំបាក ចុងភៅរបស់យើងនឹងធ្វើវាឱ្យអ្នក។',
+                'about-text2': 'ជាមួយនឹងបទពិសោធន៍ច្រើនឆ្នាំក្នុងភោជនីយដ្ឋានដ៏ល្បីល្បាញនៅទូទាំងពិភពលោក ចុងភៅរបស់យើងមានជំនាញក្នុងវិធីធ្វើម្ហូបជាច្រើន និងអាចបំពេញតាមតម្រូវការអាហារផ្សេងៗរបស់អ្នក។',
+                'learn-more': 'អានបន្ថែម',
+                'services-title': 'សេវាកម្មរបស់យើង',
+                'service1-title': 'អាហារពេលល្ងាចផ្ទាល់ខ្លួន',
+                'service1-text': 'សូមរីករាយជាមួយអាហារដែលមានគុណភាពដូចភោជនីយដ្ឋាននៅផ្ទះរបស់អ្នក ដែលត្រូវបានរៀបចំ និងបំរើដោយចុងភៅផ្ទាល់ខ្លួនរបស់អ្នក។ ល្អសម្រាប់ពេលល្ងាចសំរាប់គូស្នេហ៍ ខួបឆ្នាំ ឬពិធីពិសេសណាមួយ។',
+                'service2-title': 'ការរៀបចំអាហារសប្តាហ៍',
+                'service2-text': 'សន្សំពេលវេលា និងញ៉ាំអាហារប្រកបដោយសុខភាពជាមួយសេវាកម្មរៀបចំអាហារសប្តាហ៍របស់យើង។ ចុងភៅរបស់អ្នកនឹងរៀបចំអាហារច្រើនមុខដែលត្រូវគ្នានឹងតម្រូវការអាហាររបស់អ្នក។',
+                'service3-title': 'មេរៀនធ្វើម្ហូប',
+                'service3-text': 'រៀនធ្វើម្ហូបដូចអ្នកវិជ្ជាជីវៈជាមួយមេរៀនធ្វើម្ហូបផ្ទាល់ខ្លួននៅក្នុងផ្ទះបាយរបស់អ្នក។ ល្អសម្រាប់បុគ្គលម្នាក់ៗ គូស្នេហ៍ ឬក្រុមតូច។',
+                'chefs-title': 'ចុងភៅវិជ្ជាជីវៈរបស់យើង',
+                'chef1-name': 'ចន ម៉ាស្ទើរឈឺហ្វ',
+                'chef1-title': 'ចុងភៅប្រធាន',
+                'chef1-bio': 'ជាមួយនឹងបទពិសោធន៍ 15 ឆ្នាំក្នុងភោជនីយដ្ឋានមីស៊ីឡាំងនៅទូទាំងអឺរ៉ុប ចននាំមកនូវជំនាញធ្វើម្ហូបថ្នាក់ពិភពលោកទៅផ្ទះរបស់អ្នក។',
+                'chef2-name': 'ម៉ារីយ៉ា ហ្គាស៊ីយ៉ា',
+                'chef2-title': 'ចុងភៅនំ',
+                'chef2-bio': 'ឯកទេសក្នុងការធ្វើនំបារាំង និងនំប៉័ងដែលធ្វើដោយដៃ ម៉ារីយ៉ាបង្កើតនំដែលស្រស់ស្អាត និងឆ្ងាញ់។',
+                'chef3-name': 'ដេវីដ គីម',
+                'chef3-title': 'អ្នកឯកទេសអាហារអាស៊ី',
+                'chef3-bio': 'បានហ្វឹកហ្វឺននៅជប៉ុន និងថៃ ដេវីដផ្តល់នូវរសជាតិអាស៊ីដែលពិតប្រាកដជាមួយនឹងការបន្ថែមដ៏ទំនើបដើម្បីធ្វើឱ្យអ្នករីករាយ។',
+                'testimonials-title': 'អ្វីដែលអតិថិជនរបស់យើងនិយាយ',
+                'testimonial1-text': '"អាហារពេលល្ងាចដែលចុងភៅចនរៀបចំសម្រាប់ខួបឆ្នាំរបស់យើងគឺអស្ចារ្យណាស់។ អាហារគឺល្អជាងភោជនីយដ្ឋានណាមួយដែលយើងបានទៅ ហើយបទពិសោធន៍នៃការមានវានៅផ្ទះធ្វើឱ្យវាពិសេសជាងនេះទៅទៀត។"',
+                'testimonial1-name': 'សារ៉ា ចនសុន',
+                'testimonial1-role': 'អតិថិជនអាហារពេលល្ងាចផ្ទាល់ខ្លួន',
+                'testimonial2-text': '"សេវាកម្មរៀបចំអាហារសប្តាហ៍របស់ម៉ារីយ៉ាបានផ្លាស់ប្តូរជីវិតរបស់យើងទាំងស្រុង។ យើងកំពុងញ៉ាំអាហារប្រកបដោយសុខភាព សន្សំប្រាក់ ហើយល្អបំផុតគឺគ្មានពេលល្ងាចដ៏តានតឹងក្នុងការគិតថាតើត្រូវធ្វើម្ហូបអ្វីទៀតទេ!"',
+                'testimonial2-name': 'មីខាយ៉ែល ឈឺន',
+                'testimonial2-role': 'អតិថិជនរៀបចំអាហារសប្តាហ៍',
+                'testimonial3-text': '"មេរៀនធ្វើម្ហូបជាមួយចុងភៅដេវីដគឺសប្បាយណាស់! ខ្ញុំបានរៀនបច្ចេកទេសដែលខ្ញុំបានព្យាយាមធ្វើជាច្រើនឆ្នាំក្នុងមេរៀនតែមួយ។ គ្រួសារខ្ញុំមិនអាចជឿថាការធ្វើម្ហូបរបស់ខ្ញុំបានកែលម្អយ៉ាងដូចម្តេចទេ។"',
+                'testimonial3-name': 'អេមីលី រ៉ូដ្រីហ្គេស',
+                'testimonial3-role': 'អ្នកចូលរួមមេរៀនធ្វើម្ហូប',
+                'contact-title': 'ទំនាក់ទំនងជាមួយយើង',
+                'address-title': 'អាសយដ្ឋាន',
+                'address-text': '១២៣ ផ្លូវអាហារូបត្ថម្ភ សង្កាត់អ្នកចូលចិត្តអាហារ រាជធានីភ្នំពេញ កម្ពុជា',
+                'phone-title': 'ទូរស័ព្ទ',
+                'email-title': 'អ៊ីមែល',
+                'hours-title': 'ម៉ោងធ្វើការ',
+                'hours-text': 'ច័ន្ទ-អាទិត្យ៖ ៨:០០ព្រឹក - ១០:០០យប់',
+                'form-name': 'ឈ្មោះរបស់អ្នក',
+                'form-email': 'អ៊ីមែលរបស់អ្នក',
+                'form-subject': 'ប្រធានបទ',
+                'form-message': 'សាររបស់អ្នក',
+                'form-submit': 'ផ្ញើសារ',
+                'footer-about': 'អំពីយើង',
+                'footer-about-text': 'យើងផ្តល់សេវាកម្មចុងភៅផ្ទាល់ខ្លួនដែលមានគុណភាពខ្ពស់ នាំមកនូវជំនាញធ្វើម្ហូបថ្នាក់ខ្ពស់ទៅផ្ទះរបស់អ្នកជាមួយនឹងម៉ឺនុយផ្ទាល់ខ្លួន និងសេវាកម្មវិជ្ជាជីវៈ។',
+                'footer-links': 'តំណរបស់យើង',
+                'footer-home': 'ទំព័រដើម',
+                'footer-services': 'សេវាកម្ម',
+                'footer-chefs': 'ចុងភៅ',
+                'footer-testimonials': 'ការវាយតម្លៃ',
+                'footer-contact': 'ទំនាក់ទំនង',
+                'footer-services-menu': 'សេវាកម្ម',
+                'footer-private-dining': 'អាហារពេលល្ងាចផ្ទាល់ខ្លួន',
+                'footer-meal-prep': 'ការរៀបចំអាហារសប្តាហ៍',
+                'footer-cooking-classes': 'មេរៀនធ្វើម្ហូប',
+                'footer-catering': 'សេវាកម្មអាហារសម្រាប់ពិធី',
+                'footer-custom': 'សេវាកម្មផ្ទាល់ខ្លួន',
+                'footer-newsletter': 'ព្រឹត្តិប័ត្រព័ត៌មាន',
+                'footer-newsletter-text': 'ជាវព្រឹត្តិប័ត្រព័ត៌មានរបស់យើងសម្រាប់ព័ត៌មានថ្មីៗ និងការផ្តល់ជូនពិសេស។',
+                'footer-email-placeholder': 'អ៊ីមែលរបស់អ្នក',
+                'footer-subscribe': 'ជាវ',
+                'menu-title': 'ម៉ឺនុយពិសេសរបស់យើង',
+                'menu-appetizers': 'អាហារដើម',
+                'menu-app1': '- ប្រេងខ្មៅដែលមានរសជាតិផ្សិត',
+                'menu-app2': '- ហ៊ុមខ្យងដែលចៀនជាមួយទឹកខ្មៅអំបិល',
+                'menu-app3': '- ចានអាហារអ៊ីតាលីជាមួយឈីសដែលធ្វើដោយដៃ',
+                'menu-mains': 'មុខម្ហូបសំខាន់',
+                'menu-main1': '- សាច់គោវេលីងតុងជាមួយទឹកស៊ីឡូវ៉ាញ៉ាំង',
+                'menu-main2': '- ត្រីសាលម៉ុនដែលចៀនជាមួយទឹកខ្មៅអំបិល',
+                'menu-main3': '- ទាដែលអាំងជាមួយទឹកជ្រលក់ពព្រូស',
+                'menu-main4': '- រីសូតូផ្សិតព្រៃជាមួយប្រេងផ្សិតខ្មៅ',
+                'menu-desserts': 'បង្អែម',
+                'menu-dess1': '- នំសូហ្វ្លេសូកូឡាជាមួយការ៉ាម៉ែល',
+                'menu-dess2': '- ក្រែមប៊្រូឡេបីមុខ',
+                'menu-dess3': '- នំផ្លែឈើតាមរដូវជាមួយក្រែមឈានទីលី',
+                'menu-note': '* ម៉ឺនុយអាចត្រូវបានកែលម្អពេញលេញតាមចំណង់ចំណូលចិត្ត និងតម្រូវការអាហាររបស់អ្នក។',
+                'book-title': 'កក់ចុងភៅផ្ទាល់ខ្លួនរបស់អ្នក',
+                'form-phone': 'លេខទូរស័ព្ទ',
+                'form-date': 'កាលបរិច្ឆេទនៃសេវាកម្ម',
+                'form-service': 'ប្រភេទសេវាកម្ម',
+                'form-select': 'ជ្រើសរើសសេវាកម្ម',
+                'form-private-dining': 'អាហារពេលល្ងាចផ្ទាល់ខ្លួន',
+                'form-meal-prep': 'ការរៀបចំអាហារសប្តាហ៍',
+                'form-cooking-class': 'មេរៀនធ្វើម្ហូប',
+                'form-catering': 'សេវាកម្មអាហារសម្រាប់ពិធី',
+                'form-custom': 'សេវាកម្មផ្ទាល់ខ្លួន',
+                'form-guests': 'ចំនួនភ្ញៀវ',
+                'form-notes': 'សំណើពិសេស',
+                'form-submit-book': 'ដាក់ស្នើការកក់',
+                'kh': 'ភាសាខ្មែរ',
+                'en': 'ភាសាអង់គ្លេស'
+            }
+        };
+
+        // Current language
+        let currentLang = 'en';
+
+        // Function to toggle language
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'kh' : 'en';
+            updateLanguage();
+            updateToggleSwitch();
+            updateCredits();
+        }
+
+        // Function to update all text elements
+        function updateLanguage() {
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (languageData[currentLang][key]) {
+                    element.textContent = languageData[currentLang][key];
+                    
+                    // Update placeholder for input fields
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.setAttribute('placeholder', languageData[currentLang][key]);
+                    }
+                }
+            });
+        }
+
+        // Function to update toggle switch position
+        function updateToggleSwitch() {
+            if (currentLang === 'en') {
+                toggleSwitch.classList.add('en');
+                toggleSwitch.classList.remove('kh');
+                khText.classList.remove('active');
+                enText.classList.add('active');
+            } else {
+                toggleSwitch.classList.add('kh');
+                toggleSwitch.classList.remove('en');
+                khText.classList.add('active');
+                enText.classList.remove('active');
+            }
+        }
+
+        // Function to update credits
+        function updateCredits() {
+            if (currentLang === 'en') {
+                creditEn.style.display = 'block';
+                creditKh.style.display = 'none';
+            } else {
+                creditEn.style.display = 'none';
+                creditKh.style.display = 'block';
+            }
+        }
+
+        // Event listeners for language toggle
+        toggleSwitch.addEventListener('click', toggleLanguage);
+        khText.addEventListener('click', () => {
+            if (currentLang !== 'kh') toggleLanguage();
+        });
+        enText.addEventListener('click', () => {
+            if (currentLang !== 'en') toggleLanguage();
+        });
+
+        // Initialize
+        updateToggleSwitch();
+        updateCredits();
+    </script>
+</body>
+</html>
